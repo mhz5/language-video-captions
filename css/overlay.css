@@ -1,0 +1,108 @@
+#chinese-caption-overlay {
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: white;
+  border-radius: 10px;
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  font-family: Arial, sans-serif;
+  display: none;
+}
+
+.overlay-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.overlay-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.caption-section {
+  font-size: 28px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  text-align: center;
+}
+
+.analysis-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.char-block {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 15px;
+  width: 300px;
+}
+
+.char-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chinese-char {
+  font-size: 36px;
+  margin-bottom: 5px;
+}
+
+.pinyin {
+  font-size: 18px;
+  color: #ffc107;
+  margin-bottom: 5px;
+}
+
+.translation {
+  font-size: 16px;
+  color: #03a9f4;
+}
+
+.examples-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.example-item {
+  padding: 8px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.example-chinese {
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.example-pinyin {
+  font-size: 14px;
+  color: #ffc107;
+  margin-bottom: 3px;
+}
+
+.example-english {
+  font-size: 14px;
+  color: #03a9f4;
+}

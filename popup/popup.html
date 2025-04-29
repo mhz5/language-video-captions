@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chinese YouTube Caption Helper</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .shortcut {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .shortcut-key {
+      font-family: monospace;
+      background-color: #e0e0e0;
+      padding: 3px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+    
+    .instructions {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .footer {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #888;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chinese YouTube Caption Helper</h1>
+  
+  <div class="shortcut">
+    Shortcut: <span class="shortcut-key">Alt + Command + H</span>
+  </div>
+  
+  <div class="instructions">
+    <p>To use this extension:</p>
+    <ol>
+      <li>Play a YouTube video with Chinese captions enabled</li>
+      <li>Pause the video at the desired moment</li>
+      <li>Press <span class="shortcut-key">Alt + Command + H</span> to capture and analyze the captions</li>
+    </ol>
+  </div>
+  
+  <div class="footer">
+    This extension helps you learn Chinese by analyzing captions from YouTube videos.
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

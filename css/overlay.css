@@ -1,9 +1,9 @@
 #chinese-caption-overlay {
   position: fixed;
-  top: 10%;
-  left: 10%;
-  width: 80%;
-  height: 80%;
+  bottom: 20px;
+  right: 20px;
+  width: 35%;
+  max-height: 70%;
   background-color: rgba(0, 0, 0, 0.95);
   color: white;
   border-radius: 10px;

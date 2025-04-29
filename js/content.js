@@ -50,8 +50,46 @@ function createOverlay() {
   document.body.appendChild(overlay);
 }
 
+function positionOverlay() {
+  if (!overlay) return;
+  
+  // Find the video element
+  const video = document.querySelector('video');
+  if (!video) return;
+  
+  // Get video dimensions and position
+  const videoRect = video.getBoundingClientRect();
+  
+  // YouTube's video player has controls at the bottom, so position the overlay on the right side
+  // This avoids covering both the video and the controls
+  overlay.style.right = '20px';
+  overlay.style.bottom = '20px';
+  
+  // Make sure the overlay doesn't overlap with the video player
+  // We want it to be visible alongside the video, not on top of it
+  const playerElement = document.querySelector('#movie_player') || video.closest('.html5-video-player');
+  if (playerElement) {
+    const playerRect = playerElement.getBoundingClientRect();
+    
+    // Check if we're in the YouTube theater mode or default mode
+    const isTheaterMode = document.querySelector('ytd-watch-flexy[theater]');
+    
+    if (isTheaterMode) {
+      // In theater mode, position on right side of the page, not overlapping the video
+      overlay.style.right = '20px';
+      overlay.style.top = `${playerRect.top}px`;
+      overlay.style.maxHeight = `${playerRect.height}px`;
+    } else {
+      // In default mode, position to the right of the video player
+      overlay.style.top = `${playerRect.top}px`;
+      overlay.style.maxHeight = `${playerRect.height}px`;
+    }
+  }
+}
+
 function showOverlay() {
   if (!overlay) createOverlay();
+  positionOverlay();
   overlay.style.display = 'block';
   isOverlayVisible = true;
 }
@@ -123,6 +161,9 @@ function captureCaptions() {
 // Process Chinese text and display in overlay
 function processChineseText(text) {
   createOverlay();
+  
+  // Position overlay to avoid covering the video
+  positionOverlay();
   
   const contentContainer = overlay.querySelector('.overlay-content');
   contentContainer.innerHTML = ''; // Clear previous content
@@ -202,5 +243,12 @@ document.addEventListener('keydown', (event) => {
   // Alt+Command+H (Mac)
   if (event.altKey && event.metaKey && event.key === 'h') {
     captureCaptions();
+  }
+});
+
+// Reposition overlay when window is resized
+window.addEventListener('resize', () => {
+  if (isOverlayVisible) {
+    positionOverlay();
   }
 });

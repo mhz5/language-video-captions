@@ -22,7 +22,7 @@
   "commands": {
     "capture-captions": {
       "suggested_key": {
-        "mac": "Alt+Command+H"
+        "mac": "Alt+Space"
       },
       "description": "Capture and analyze captions"
     }

@@ -247,6 +247,10 @@ document.addEventListener('keydown', (event) => {
   if (event.altKey && event.metaKey && event.key === 'h') {
     captureCaptions();
   }
+  // Close overlay with Escape key
+  else if (event.key === 'Escape' && isOverlayVisible) {
+    hideOverlay();
+  }
 });
 
 // Reposition overlay when window is resized

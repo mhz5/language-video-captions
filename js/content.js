@@ -174,6 +174,9 @@ function processChineseText(text) {
   captionSection.textContent = text;
   contentContainer.appendChild(captionSection);
   
+  // Set position to relative for char-block positioning
+  contentContainer.style.position = 'relative';
+  
   // Character analysis section
   const analysisSection = document.createElement('div');
   analysisSection.classList.add('analysis-section');

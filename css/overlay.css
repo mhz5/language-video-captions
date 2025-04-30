@@ -3,9 +3,8 @@
   bottom: 20px;
   right: 20px;
   width: auto;
-  min-width: 35%;
-  max-width: 80%;
-  max-height: 70%;
+  max-width: 400px;
+  max-height: 80vh;
   background-color: rgba(0, 0, 0, 0.95);
   color: white;
   border-radius: 10px;
@@ -118,4 +117,32 @@
 .example-english {
   font-size: 12px;
   color: #03a9f4;
+}
+
+/* Debug elements for screenshot feature */
+.debug-container {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.ocr-result {
+  margin-top: 5px;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  font-family: monospace;
+  font-size: 12px;
+  border-radius: 3px;
+  color: #8cf;
+}
+
+.translation-result {
+  margin-top: 10px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  border-radius: 5px;
+  color: #4CAF50;
+  border-left: 3px solid #4CAF50;
 }

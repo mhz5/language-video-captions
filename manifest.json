@@ -6,7 +6,8 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
     "*://*.youtube.com/*"
@@ -30,7 +31,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
-      "js": ["js/content.js"],
+      "js": ["js/ocr.js", "js/content.js"],
       "css": ["css/overlay.css"]
     }
   ],

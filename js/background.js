@@ -7,3 +7,20 @@ chrome.commands.onCommand.addListener((command) => {
     });
   }
 });
+
+// Listen for messages from content script
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  // Handle screenshot capture request
+  if (request.action === "captureScreenshot") {
+    chrome.tabs.captureVisibleTab(
+      null, 
+      { format: "png", quality: 100 }, 
+      function(dataUrl) {
+        // Send the screenshot data URL back to the content script
+        sendResponse({ dataUrl: dataUrl });
+      }
+    );
+    // Return true to indicate we will send a response asynchronously
+    return true;
+  }
+});

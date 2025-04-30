@@ -5,12 +5,16 @@ A Chrome extension to help with Chinese language learning on YouTube.
 ## Features
 
 - Capture Chinese captions from YouTube videos with a keyboard shortcut (Alt+Command+H on Mac)
+- Take screenshots of caption text for more accurate extraction
+- Process caption screenshots with OCR to extract Chinese text
+- Translate captured captions automatically
 - Display detailed information about each Chinese character:
   - Pinyin pronunciation
   - English translation
   - 3 common usage examples with pinyin and English translations
 - Works with both standard YouTube captions and closed captions in the video
 - Analyze captions when video is paused to get in-depth understanding
+- Visual feedback showing the captured caption image alongside the extracted text
 
 ## Installation
 
@@ -40,6 +44,7 @@ A Chrome extension to help with Chinese language learning on YouTube.
 - Light/dark mode for the overlay
 - Export functionality for study notes
 - Add support for other video platforms and languages
+- Improve OCR accuracy for text extraction from caption screenshots
 
 ## Limitations
 

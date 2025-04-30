@@ -205,19 +205,48 @@ function captureCaptions() {
           const imageContainer = document.createElement('div');
           imageContainer.classList.add('debug-container');
 
+          // Add original screenshot with label
+          const originalLabel = document.createElement('div');
+          originalLabel.textContent = 'Original Screenshot:';
+          originalLabel.style.fontWeight = 'bold';
+          imageContainer.appendChild(originalLabel);
+          
           // Add the screenshot
           const capturedImg = document.createElement('img');
           capturedImg.src = captionDataUrl;
           capturedImg.style.maxWidth = '100%';
-          capturedImg.style.marginBottom = '10px';
+          capturedImg.style.marginBottom = '15px';
+          imageContainer.appendChild(capturedImg);
 
+          // Add the processed image if available
+          if (window.latestOcrResult && window.latestOcrResult.processedImage) {
+            const processedLabel = document.createElement('div');
+            processedLabel.textContent = 'Processed Image:';
+            processedLabel.style.fontWeight = 'bold';
+            processedLabel.style.marginTop = '10px';
+            imageContainer.appendChild(processedLabel);
+            
+            const processedImg = document.createElement('img');
+            processedImg.src = window.latestOcrResult.processedImage;
+            processedImg.style.maxWidth = '100%';
+            processedImg.style.marginBottom = '15px';
+            imageContainer.appendChild(processedImg);
+          }
+          
           // Add OCR result for debugging
+          const resultLabel = document.createElement('div');
+          resultLabel.textContent = 'OCR Result:';
+          resultLabel.style.fontWeight = 'bold';
+          resultLabel.style.marginTop = '10px';
+          imageContainer.appendChild(resultLabel);
+          
           const ocrResultElem = document.createElement('div');
           ocrResultElem.classList.add('ocr-result');
-          ocrResultElem.textContent = `OCR Result: ${ocrText || "None"}`;
-
-          // Add to container
-          imageContainer.appendChild(capturedImg);
+          ocrResultElem.textContent = ocrText || "No text detected";
+          ocrResultElem.style.padding = '5px';
+          ocrResultElem.style.backgroundColor = '#f5f5f5';
+          ocrResultElem.style.border = '1px solid #ddd';
+          ocrResultElem.style.borderRadius = '4px';
           imageContainer.appendChild(ocrResultElem);
 
           // Add container to overlay
@@ -236,6 +265,10 @@ async function processWithOCR(imageDataUrl) {
   try {
     // Use the OCR helper to perform OCR
     const ocrResult = await window.OCRHelper.performOCR(imageDataUrl);
+    
+    // Store the result for UI display
+    window.latestOcrResult = ocrResult;
+    
     return ocrResult.text;
   } catch (error) {
     console.error('OCR processing failed:', error);

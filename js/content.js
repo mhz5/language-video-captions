@@ -125,92 +125,101 @@ function captureCaptions() {
     return;
   }
 
-  // Try to find caption container element to get its position
-  // First, look for standard YouTube captions
-  let captionElement = document.querySelector('.ytp-caption-segment');
+  // // Try to find caption container element to get its position
+  // // First, look for standard YouTube captions
+  // let captionElement = document.querySelector('.ytp-caption-segment');
 
-  // If not found, look for captions in the player
-  if (!captionElement) {
-    captionElement = document.querySelector('.captions-text');
-  }
+  // // If not found, look for captions in the player
+  // if (!captionElement) {
+  //   captionElement = document.querySelector('.captions-text');
+  // }
 
-  // If still not found, check for any other possible caption elements
-  if (!captionElement) {
-    captionElement = document.querySelector('.caption-window');
-  }
+  // // If still not found, check for any other possible caption elements
+  // if (!captionElement) {
+  //   captionElement = document.querySelector('.caption-window');
+  // }
 
-  // If no captions found
-  if (!captionElement) {
-    console.error('No captions found');
-    alert('No captions found. Please enable captions in the video.');
-    return;
-  }
+  // // If no captions found
+  // if (!captionElement) {
+  //   console.error('No captions found');
+  //   alert('No captions found. Please enable captions in the video.');
+  //   return;
+  // }
 
   // Get the caption element's position and dimensions
-  const rect = captionElement.getBoundingClientRect();
-
+  // const rect = captionElement.getBoundingClientRect();
   // Get the text content of the captions as fallback
-  const captionText = captionElement.textContent.trim();
-  
+  // const captionText = captionElement.textContent.trim();
+
+  const rect = new DOMRect(
+    x = 500,
+    y = 1000,
+    width = 1000,
+    height = 250
+  )
+
+
+  console.log('Caption Rect:', rect);
+
   // Request screenshot from the extension
-  chrome.runtime.sendMessage({ 
-    action: "captureScreenshot" 
+  chrome.runtime.sendMessage({
+    action: "captureScreenshot"
   }, function(response) {
     if (response && response.dataUrl) {
       // Create image from the screenshot
       const img = new Image();
       img.src = response.dataUrl;
-      
+
       img.onload = function() {
         // Create a canvas for cropping
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        
+
         // Set canvas dimensions to match the caption element
         canvas.width = rect.width;
         canvas.height = rect.height;
-        
+
         // Draw only the caption area to the canvas
         ctx.drawImage(
           img,
           rect.left, rect.top, rect.width, rect.height, // Source coordinates (caption location)
           0, 0, rect.width, rect.height                 // Destination coordinates (start at 0,0 in canvas)
         );
-        
+
         // Get the data URL for the cropped caption
         const captionDataUrl = canvas.toDataURL('image/png');
-        
+
         // Store the screenshot for reference
         sessionStorage.setItem('lastCaptionScreenshot', captionDataUrl);
-        
+
         // Process the image with OCR
         processWithOCR(captionDataUrl).then(ocrText => {
           // Use OCR text if available, otherwise fall back to DOM text
           const textToProcess = ocrText || captionText;
           processChineseText(textToProcess);
-          
+
           // Display the captured image in the overlay for debugging
           const contentContainer = overlay.querySelector('.overlay-content');
-          
+
           // Create a container for the image and OCR result
           const imageContainer = document.createElement('div');
           imageContainer.classList.add('debug-container');
-          
+
           // Add the screenshot
           const capturedImg = document.createElement('img');
           capturedImg.src = captionDataUrl;
           capturedImg.style.maxWidth = '100%';
           capturedImg.style.marginBottom = '10px';
-          
+
           // Add OCR result for debugging
           const ocrResultElem = document.createElement('div');
           ocrResultElem.classList.add('ocr-result');
           ocrResultElem.textContent = `OCR Result: ${ocrText || "None"}`;
-          
+
           // Add to container
           imageContainer.appendChild(capturedImg);
           imageContainer.appendChild(ocrResultElem);
-          
+
           // Add container to overlay
           contentContainer.insertBefore(imageContainer, contentContainer.firstChild);
         });
@@ -247,7 +256,7 @@ function processChineseText(text, imageUrl = null, translationResult = null) {
   // Caption display section
   const captionSection = document.createElement('div');
   captionSection.classList.add('caption-section');
-  
+
   // If we have a screenshot, display it
   if (imageUrl) {
     const capturedImg = document.createElement('img');
@@ -256,12 +265,12 @@ function processChineseText(text, imageUrl = null, translationResult = null) {
     capturedImg.style.marginBottom = '10px';
     captionSection.appendChild(capturedImg);
   }
-  
+
   // Add the text content
   const textElement = document.createElement('div');
   textElement.textContent = text;
   captionSection.appendChild(textElement);
-  
+
   // If we have a translation, display it
   if (translationResult && translationResult.translated) {
     const translationElement = document.createElement('div');
@@ -274,7 +283,7 @@ function processChineseText(text, imageUrl = null, translationResult = null) {
     translationElement.style.color = '#4CAF50';
     captionSection.appendChild(translationElement);
   }
-  
+
   contentContainer.appendChild(captionSection);
 
   // Set position to relative for char-block positioning
